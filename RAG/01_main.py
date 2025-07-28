@@ -5,7 +5,7 @@ from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
-from langchain import hub  # ✅ Import this
+from langchain import hub
 
 # Set your OpenAI API key
 os.environ["OPENAI_API_KEY"] = "your-key-here"
