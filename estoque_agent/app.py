@@ -1,4 +1,13 @@
-import streamlit as st
+from decouple import config
+
+from langchain import hub
+from langchain.agents import create_react_agent, AgentExecutor
+from langchain.prompts import PromptTemplate
+from langchain_community.utilities.sql_database import SQLDatabase
+from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
+from langchain_openai import ChatOpenAI
+
+os.environ['OPENAI_API_KEY'] = config('OPENAI_API_KEY')
 
 st.set_page_config(
     page_title="Estoque GPT",
@@ -29,6 +38,11 @@ st.write("Faça perguntas sobre o estoque de produtos, preços e reposições.")
 
 user_question = st.text_input("O que deseja saber sobre o estoque?")
 
+model = ChatOpenAI(
+    model=selected_model,
+)
+db = SQLDatabase.from_uri('sqlite://estoque.db')
+toolkit = SQLDatabaseToolkit
 if st.button('Consultar'):
     if user_question:
         st.write('FEZ UMA PERGUNTA!')
